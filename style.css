@@ -1,0 +1,460 @@
+/* ===================================================================
+   Design tokens — "Study Swap" visual identity
+   Concept: students trading skills like flashcards/index cards.
+   =================================================================== */
+:root {
+    --ink: #1B2333;          /* primary text / dark surfaces */
+    --paper: #FBF8F2;        /* page background — warm, not stark white */
+    --paper-alt: #F1ECDF;    /* secondary surface (alt cards, table stripes) */
+    --border: #E3DCC9;       /* warm hairline border */
+
+    --marigold: #F2A23B;     /* primary accent — CTAs, providers */
+    --marigold-dark: #D6871F;
+    --teal: #3F7D74;         /* secondary accent — seekers, tags */
+    --teal-dark: #305F58;
+
+    --success: #2F9E58;
+    --danger: #C7462F;
+    --warning: #D6871F;
+    --muted: #756F5F;
+
+    --radius: 10px;
+    --shadow-card: 0 2px 0 var(--border);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: 'IBM Plex Sans', -apple-system, Segoe UI, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+}
+
+h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.15;
+    margin: 0 0 10px;
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 12px; }
+
+a { color: var(--teal-dark); }
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ---------------------------------------------------------------
+   Header / nav
+   --------------------------------------------------------------- */
+.site-header {
+    background: var(--paper);
+    border-bottom: 2px solid var(--ink);
+}
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+}
+.brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.brand .mark {
+    display: inline-block;
+    width: 12px; height: 12px;
+    background: var(--marigold);
+    border: 2px solid var(--ink);
+    border-radius: 3px;
+    transform: rotate(-8deg);
+}
+.brand span.accent { color: var(--teal-dark); }
+
+nav.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+nav.main-nav a {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
+    transition: border-color 0.15s ease;
+}
+nav.main-nav a:hover { border-color: var(--marigold); }
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    width: 40px; height: 36px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 760px) {
+    .nav-toggle { display: block; }
+    nav.main-nav {
+        display: none;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        background: var(--paper);
+        border-bottom: 2px solid var(--ink);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 24px;
+        gap: 14px;
+        z-index: 20;
+    }
+    nav.main-nav.open { display: flex; }
+    .site-header { position: relative; }
+}
+
+/* ---------------------------------------------------------------
+   Layout
+   --------------------------------------------------------------- */
+main.container { padding: 40px 24px 70px; min-height: 70vh; }
+
+/* ---------------------------------------------------------------
+   Hero (landing page) — fanned photo deck
+   --------------------------------------------------------------- */
+.hero-split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    padding: 50px 0 20px;
+}
+.hero-split h1 { font-size: 2.9rem; margin-bottom: 16px; }
+.hero-split .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 46ch;
+    margin-bottom: 26px;
+}
+.hero-actions { display: flex; gap: 12px; }
+
+.card-deck {
+    position: relative;
+    height: 340px;
+}
+.card-deck img {
+    position: absolute;
+    width: 240px;
+    height: 300px;
+    object-fit: cover;
+    border: 4px solid var(--paper);
+    outline: 2px solid var(--ink);
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(27,35,51,0.18);
+    opacity: 0;
+    transform: translateY(24px) rotate(0deg);
+    animation: settle 0.7s ease forwards;
+}
+.card-deck img:nth-child(1) { left: 0;   top: 30px;  transform: translateY(24px) rotate(-9deg); animation-delay: 0.05s; z-index: 1; }
+.card-deck img:nth-child(2) { left: 110px; top: 0;    transform: translateY(24px) rotate(4deg);  animation-delay: 0.18s; z-index: 2; }
+.card-deck img:nth-child(3) { left: 220px; top: 40px; transform: translateY(24px) rotate(11deg); animation-delay: 0.30s; z-index: 1; }
+
+@keyframes settle {
+    to { opacity: 1; transform: translateY(0) rotate(var(--end-rot, 0deg)); }
+}
+.card-deck img:nth-child(1) { --end-rot: -9deg; }
+.card-deck img:nth-child(2) { --end-rot: 4deg; }
+.card-deck img:nth-child(3) { --end-rot: 11deg; }
+
+@media (max-width: 760px) {
+    .hero-split { grid-template-columns: 1fr; }
+    .card-deck { height: 260px; margin-top: 10px; }
+    .card-deck img { width: 170px; height: 210px; }
+    .card-deck img:nth-child(2) { left: 70px; }
+    .card-deck img:nth-child(3) { left: 140px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-deck img { animation: none; opacity: 1; transform: translateY(0) rotate(var(--end-rot,0deg)); }
+}
+
+/* ---------------------------------------------------------------
+   Role cards — index-card motif
+   --------------------------------------------------------------- */
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    margin: 30px 0 10px;
+}
+.role-card {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    padding: 22px;
+    position: relative;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: 22px;
+    width: 30px; height: 10px;
+    border-radius: 0 0 4px 4px;
+}
+.role-card.provider::before { background: var(--marigold); }
+.role-card.seeker::before { background: var(--teal); }
+.role-card.admin::before { background: var(--ink); }
+.role-card:hover {
+    transform: rotate(-1deg) translateY(-3px);
+    box-shadow: 4px 6px 0 var(--ink);
+}
+.role-card h3 { margin-bottom: 8px; }
+.role-card p { color: var(--muted); margin: 0; font-size: 0.94rem; }
+
+/* ---------------------------------------------------------------
+   Generic cards
+   --------------------------------------------------------------- */
+.card {
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-card);
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+/* Skill listing cards get a small teal corner tag */
+.skill-card {
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease;
+}
+.skill-card:hover { transform: translateY(-3px); }
+.skill-card .level-tag {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+/* ---------------------------------------------------------------
+   Forms
+   --------------------------------------------------------------- */
+form.stacked label {
+    display: block;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+form.stacked input,
+form.stacked select,
+form.stacked textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 11px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: normal;
+    font-family: inherit;
+    background: #fff;
+}
+form.stacked input:focus,
+form.stacked select:focus,
+form.stacked textarea:focus {
+    outline: none;
+    border-color: var(--marigold);
+    box-shadow: 0 0 0 3px rgba(242,162,59,0.25);
+}
+form.stacked textarea { resize: vertical; min-height: 90px; }
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+.search-bar input {
+    flex: 1;
+    max-width: 340px;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    font-size: 1rem;
+}
+
+/* ---------------------------------------------------------------
+   Buttons
+   --------------------------------------------------------------- */
+.btn {
+    display: inline-block;
+    background: var(--marigold);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+.btn-secondary { background: var(--paper); color: var(--ink); }
+.btn-danger { background: var(--danger); color: #fff; border-color: var(--danger); box-shadow: 3px 3px 0 #7c2c1c; }
+.btn-sm { padding: 6px 13px; font-size: 0.83rem; box-shadow: 2px 2px 0 var(--ink); }
+
+/* ---------------------------------------------------------------
+   Alerts / flash
+   --------------------------------------------------------------- */
+.alert {
+    padding: 13px 16px;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+}
+.alert-success { background: #E4F4EA; color: var(--success); border-color: var(--success); }
+.alert-error { background: #FBEAE5; color: var(--danger); border-color: var(--danger); }
+.alert-info { background: #E7EFEE; color: var(--teal-dark); border-color: var(--teal); }
+
+/* ---------------------------------------------------------------
+   Tables
+   --------------------------------------------------------------- */
+table { width: 100%; border-collapse: collapse; background: var(--paper); }
+table th, table td {
+    text-align: left;
+    padding: 11px 12px;
+    border-bottom: 1.5px solid var(--border);
+    font-size: 0.92rem;
+}
+table th { color: var(--muted); font-weight: 600; font-family: 'Fraunces', serif; }
+table tr:hover td { background: var(--paper-alt); }
+
+/* ---------------------------------------------------------------
+   Badges (status)
+   --------------------------------------------------------------- */
+.badge {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 100px;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+.badge-Pending { background: #FBEDD9; color: var(--warning); }
+.badge-Accepted { background: #E4F4EA; color: var(--success); }
+.badge-Declined { background: #FBEAE5; color: var(--danger); }
+.badge-Completed { background: #E7EFEE; color: var(--teal-dark); }
+
+/* ---------------------------------------------------------------
+   Stats
+   --------------------------------------------------------------- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 26px;
+}
+.stat-card {
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    text-align: center;
+}
+.stat-card .num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--ink); }
+.stat-card .label { color: var(--muted); font-size: 0.83rem; }
+
+/* ---------------------------------------------------------------
+   Page banner (dashboards)
+   --------------------------------------------------------------- */
+.page-banner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin-bottom: 26px;
+    overflow: hidden;
+}
+.page-banner img {
+    width: 84px; height: 84px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--marigold);
+    flex-shrink: 0;
+}
+.page-banner h1 { color: var(--paper); margin-bottom: 4px; font-size: 1.7rem; }
+.page-banner p { color: #C9CCD6; margin: 0; font-size: 0.92rem; }
+
+.profile-picture-preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 18px;
+}
+
+/* ---------------------------------------------------------------
+   Interactive star rating (review.php)
+   --------------------------------------------------------------- */
+.star-picker { display: flex; gap: 4px; font-size: 2rem; margin-top: 6px; }
+.star-picker .star {
+    cursor: pointer;
+    color: var(--border);
+    transition: color 0.1s ease, transform 0.1s ease;
+}
+.star-picker .star:hover { transform: scale(1.15); }
+.star-picker .star.active { color: var(--marigold); }
+
+.rating-stars { color: var(--marigold); letter-spacing: 2px; }
+
+/* ---------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------- */
+.site-footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1.5px solid var(--border);
+}
