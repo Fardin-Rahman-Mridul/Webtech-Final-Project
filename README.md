@@ -1,4 +1,4 @@
-Student Skill Exchange Platform
+#  Student Skill Exchange Platform
 
 A web-based **Student Skill Exchange Platform** that allows students to share, learn, and exchange skills with each other. The platform provides separate dashboards and functionalities for **Skill Providers, Skill Seekers, and Administrators**.
 
@@ -6,7 +6,7 @@ Students can publish their skills, search for skills offered by others, send exc
 
 ---
 
-Project Overview
+##  Project Overview
 
 The **Student Skill Exchange Platform** is designed to create a collaborative environment where students can exchange knowledge and skills.
 
@@ -20,9 +20,9 @@ The system manages the complete exchange process:
 
 ---
 
-Main Features
+##  Main Features
 
-Authentication & User Management
+###  Authentication & User Management
 
 * User registration
 * Secure login and logout
@@ -33,7 +33,7 @@ Authentication & User Management
 * Change password
 * Account deletion
 
-Skill Provider
+###  Skill Provider
 
 Skill Providers can:
 
@@ -47,7 +47,7 @@ Skill Providers can:
 * Track assignments and submissions
 * Communicate with Skill Seekers through chat
 
-Skill Seeker
+###  Skill Seeker
 
 Skill Seekers can:
 
@@ -63,7 +63,7 @@ Skill Seekers can:
 * Review completed exchanges
 * Give ratings and written feedback
 
-Exchange Chat
+###  Exchange Chat
 
 The platform includes a communication system that allows users involved in an exchange to:
 
@@ -72,7 +72,7 @@ The platform includes a communication system that allows users involved in an ex
 * View previous messages
 * Communicate based on a specific exchange request
 
-Assignment Management
+###  Assignment Management
 
 Skill Providers can create assignments associated with an exchange.
 
@@ -96,7 +96,7 @@ The system automatically tracks whether a submission is:
 * **On Time**
 * **Late**
 
-Reviews & Ratings
+###  Reviews & Ratings
 
 After completing an exchange, users can provide:
 
@@ -105,7 +105,7 @@ After completing an exchange, users can provide:
 
 This helps users evaluate their exchange experience and provides feedback about Skill Providers.
 
-Admin Panel
+###  Admin Panel
 
 Administrators can manage and monitor the platform.
 
@@ -124,7 +124,7 @@ Admin features include:
 
 ---
 
-Technologies Used
+##  Technologies Used
 
 | Technology     | Purpose                          |
 | -------------- | -------------------------------- |
@@ -139,7 +139,7 @@ Technologies Used
 
 ---
 
-Project Structure
+##  Project Structure
 
 ```text
 skill-exchange-platform/
@@ -195,9 +195,49 @@ skill-exchange-platform/
 
 ---
 
+##  Database
 
+The project uses a MySQL database named:
 
-Security Features
+```text
+skill_exchange
+```
+
+### Main Database Tables
+
+* `roles`
+* `users`
+* `userAvailability`
+* `skills`
+* `exchangeRequests`
+* `exchangeMessages`
+* `assignments`
+* `assignmentSubmissions`
+* `exchangeReviews`
+
+### Database Relationships
+
+The database manages relationships between:
+
+```text
+Users
+  │
+  ├── Skills
+  │
+  ├── Exchange Requests
+  │       │
+  │       ├── Messages
+  │       └── Assignments
+  │               └── Submissions
+  │
+  └── Reviews
+```
+
+Foreign keys and cascading rules are used to maintain database consistency.
+
+---
+
+##  Security Features
 
 The project includes several basic security practices:
 
@@ -213,7 +253,7 @@ SQL queries use **prepared statements** to reduce the risk of SQL injection.
 
 ---
 
-Installation & Setup
+#  Installation & Setup
 
 ## 1. Install XAMPP
 
@@ -361,7 +401,7 @@ Admin Dashboard
 
 ---
 
-Creating an Admin Account
+#  Creating an Admin Account
 
 Admin registration is not available through the public registration form.
 
@@ -397,7 +437,7 @@ Then log out and log back in.
 
 ---
 
-Exchange Workflow
+#  Exchange Workflow
 
 The complete exchange workflow is:
 
@@ -437,7 +477,7 @@ Rating & Review
 
 ---
 
-Admin Reports
+#  Admin Reports
 
 The administration panel provides information such as:
 
@@ -452,7 +492,7 @@ These features allow administrators to monitor the overall activity of the platf
 
 ---
 
-Important Files
+#  Important Files
 
 | File                     | Purpose                          |
 | ------------------------ | -------------------------------- |
@@ -472,7 +512,7 @@ Important Files
 
 ---
 
-Project Objectives
+#  Project Objectives
 
 The main objectives of this project are to:
 
